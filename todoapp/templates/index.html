@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    .nav-buttons button {
+      width: 32%;
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      background: #4a90e2;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .nav-buttons button:hover {
+      background: #3b76b8;
+    }
+    .section {
+      display: none;
+      background: white;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>Todo + Diary + Memories</header>
+
+  <div class="container">
+    <div class="nav-buttons">
+      <button onclick="showSection('todo')">Todo</button>
+      <button onclick="showSection('diary')">Diary</button>
+      <button onclick="showSection('memories')">Memories</button>
+    </div>
+
+    <!-- TODO SECTION -->
+    <div id="todo" class="section">
+      <h2>Todo List</h2>
+      <input type="text" id="todoInput" placeholder="Enter todo item" />
+      <button onclick="addTodo()">Add</button>
+      <ul id="todoList"></ul>
+    </div>
+
+    <!-- DIARY SECTION -->
+    <div id="diary" class="section">
+      <h2>Write Diary</h2>
+      <textarea id="diaryText" placeholder="Write your diary..."></textarea>
+      <button onclick="addDiary()">Add Diary Entry</button>
+      <ul id="diaryList"></ul>
+    </div>
+
+    <!-- MEMORIES SECTION -->
+    <div id="memories" class="section">
+      <h2>Add a Memory</h2>
+      <textarea id="memoryText" placeholder="Write your memory..."></textarea>
+      <button onclick="addMemory()">Add Memory</button>
+      <ul id="memoryList"></ul>
+    </div>
+  </div>
+
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    function createItem(text, listId) {
+      const li = document.createElement('li');
+      li.innerHTML = `${text} <button onclick="this.parentElement.remove()">Delete</button>`;
+      document.getElementById(listId).appendChild(li);
+    }
+
+    function addTodo() {
+      const text = document.getElementById('todoInput').value;
+      if (text.trim() === '') return;
+      createItem(text, 'todoList');
+      document.getElementById('todoInput').value = '';
+    }
+
+    function addDiary() {
+      const text = document.getElementById('diaryText').value;
+      if (text.trim() === '') return;
+      createItem(text, 'diaryList');
+      document.getElementById('diaryText').value = '';
+    }
+
+    function addMemory() {
+      const text = document.getElementById('memoryText').value;
+      if (text.trim() === '') return;
+      createItem(text, 'memoryList');
+      document.getElementById('memoryText').value = '';
+    }
+  </script>
+</body>
+</html>
